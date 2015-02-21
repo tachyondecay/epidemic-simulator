@@ -115,6 +115,7 @@ var Simulator = {
         output = newRow(output, epidemic.grid.size);
       }
     }, this, true);
+    $(canvas).prev().text('Day ' + epidemic.day);
     $(canvas).html(output);
   },
 
@@ -157,7 +158,6 @@ var Simulator = {
           self.toggleControls(['generate', 'config'], ['pause']);
         }
       }, self.config.speed*1000);
-    console.log(e);
   },
 
   toggleControls: function(enable, disable) {
