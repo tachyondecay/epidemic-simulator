@@ -193,7 +193,7 @@ var Simulator = {
     }
 
     new_config.immune_after = (new_config.immune_after === '1') ? true : false;
-    if([0,1,2].indexOf(new_config.behaviour) === -1) {
+    if(['0','1','2'].indexOf(new_config.behaviour) === -1) {
       new_config.behaviour = Simulator.config.behaviour;
     }
     if(new_config.speed < 0.25 || new_config.speed > 3) {
@@ -444,16 +444,3 @@ Villager.prototype.move = function(grid) {
     }
   }
 };
-
-
-/*
-Program flow:
-- Initialize the Grid
-- Populate the Grid with villagers
-- Loop through the grid:
-  - If the space is empty, move to the next space.
-  - If the space contains a villager:
-    - If the villager is sick:
-      - If the villager has died, remove the villager.
-      - If the villager has been sick too long, cure them.
- */
