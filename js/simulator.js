@@ -115,7 +115,7 @@ var Simulator = {
         output = newRow(output, epidemic.grid.size);
       }
     }, this, true);
-    $(canvas).prev().text('Day ' + epidemic.day);
+    $('.day-count span').text(epidemic.day);
     $(canvas).html(output);
   },
 

@@ -6,142 +6,212 @@
   <title>Simple Epidemic Simulator</title>
   <link href="css/styles.css" rel="stylesheet"/>
   <script src="js/jquery-2.1.3.min.js"></script>
+  <script src="js/jcanvas.min.js"></script>
   <script src="js/simulator.js"></script>
   <script src="js/runtime.js"></script>
 </head>
 <body>
-  <h1>Epidemic Simulator</h1>
+  <header>
+    <h1>Epidemic Simulator</h1>
+    <p class="subtitle">An experimental probability exercise</p>
+  </header>
 
-  <div class="display">
-    <div class="controls">
-      <button id="new">New Grid</button>
-      <button id="run">Run</button>
-      <button id="pause">Pause</button>
+  <main>
+
+  <div class="main-panel">
+    <div class="display">
+      <h2 class="visuallyhidden">Simulation Output</h2>
+
+      <div class="display-meta">
+        <div class="controls">
+          <h3>Controls</h3>
+          <ul>
+            <li><button id="new">New Grid</button></li>
+            <li><button id="run">Run</button></li>
+            <li><button id="pause">Pause</button></li>
+          </ul>
+        </div>
+
+        <div class="legend">
+          <h3>Legend</h3>
+          <dl>
+            <dt class="healthy">O</dt>
+            <dd>Healthy</dd>
+            <dt class="immune">N</dt>
+            <dd>Immune</dd>
+            <dt class="infected">/</dt>
+            <dd>Infected</dd>
+            <dt class="quarantined">Q</dt>
+            <dd>Quarantined</dd>
+          </dl>
+        </div>
+        <div class="day-count">Day <span>0</span></div>
+      </div>
+
+      <div class="canvas-container">
+        <h3 class="visuallyhidden">Grid</h3>
+        <pre id="canvas"></pre>
+      </div>
     </div>
+    <div class="display results">
+      <h2>Results</h2>
 
-    <p class="legend">
-      Legend: O - healthy, N - immune, / - infected, Q - quarantined
-    </p>
-    <p id="day-count">Day 0</p>
-    <pre id="canvas"></pre>
+      <button id="clear">Clear Results</button>
+
+      <table id="results">
+        <thead>
+          <tr>
+            <th scope="col" class="visuallyhidden">Epidemic</th>
+            <th scope="col">Duration (days)</th>
+            <th scope="col">Death count</th>
+            <th scope="col">Number who never got ill</th>
+            <th scope="col">Number who got ill and recovered</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr class="mean">
+            <th scope="row">Mean</th>
+            <td class="day"></td>
+            <td class="dead"></td>
+            <td class="healthy"></td>
+            <td class="recovered"></td>
+          </tr>
+          <tr class="std_dev">
+            <th scope="row">Standard Deviation</th>
+            <td class="day"></td>
+            <td class="dead"></td>
+            <td class="healthy"></td>
+            <td class="recovered"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
 
-  <div class="variables">
-    <h2>Configuration</h2>
+  <div class="side-panel variables">
+    <h2>Variables</h2>
 
     <form id="config">
       <fieldset id="village">
         <legend>Village</legend>
 
-        <p>
-          <label for="size">Grid Dimensions</label>
-          <input type="range" name="grid_size" id="grid_size" min="2" max="50" step="1"/>
+        <div class="form-input slider">
+          <div class="input">
+            <label for="size">Grid Dimensions</label>
+            <input type="range" name="grid_size" id="grid_size" min="2" max="50" step="1"/>
+          </div>
           <output for="grid_size"></output>
-        </p>
-        <p>
-          <label for="speed">Simulation Speed</label>
-          <input type="range" name="speed" id="speed" min="0.25" max="3" step="0.25" data-output="1 day is %o second?s"/>
+        </div>
+
+        <div class="form-input slider">
+          <div class="input">
+            <label for="speed">Simulation Speed</label>
+            <input type="range" name="speed" id="speed" min="0.25" max="3" step="0.25" data-output="%o second?s/day"/>
+          </div>
           <output for="speed"></output>
-        <p>
-          <label for="pop">Population</label>
-          <input type="number" name="pop" id="pop" min="2" max="1000" step="1"/>
-        </p>
-        <p>
-          <label for="infected">Percentage Infected</label>
-          <input type="range" name="infected" id="infected" data-output="%" min="0" max="1" step="0.05"/>
+        </div>
+
+        <div class="form-input regular">
+          <div class="input">
+           <label for="pop">Population</label>
+          </div>
+          <div class="output">
+            <input type="number" name="pop" id="pop" min="2" max="1000" step="1"/>
+          </div>
+        </div>
+
+        <div class="form-input slider">
+          <div class="input">
+            <label for="infected">Percentage Infected</label>
+            <input type="range" name="infected" id="infected" data-output="%" min="0" max="1" step="0.05"/>
+          </div>
           <output for="infected"></output>
-        </p>
-        <p>
-          <label for="immune">Percentage Immune</label>
-          <input type="range" name="immune" id="immune" data-output="%" min="0" max="1" step="0.05"/>
+        </div>
+
+        <div class="form-input slider">
+          <div class="input">
+            <label for="immune">Percentage Immune</label>
+            <input type="range" name="immune" id="immune" data-output="%" min="0" max="1" step="0.05"/>
+          </div>
           <output for="immune"></output>
-        </p>
+        </div>
       </fieldset>
 
       <fieldset id="disease">
         <legend>Disease</legend>
 
-        <p>
-          <label for="duration">Duration</label>
-          <input type="range" name="duration" id="duration" min="1" max="15" step="1" data-output="%o day?s" />
+        <div class="form-input slider">
+          <div class="input">
+            <label for="duration">Duration</label>
+            <input type="range" name="duration" id="duration" min="1" max="15" step="1" data-output="%o day?s" />
+          </div>
           <output for="duration"></output>
-        </p>
-        <p>
-          <label for="infects_after">Infectious after</label>
-          <input type="range" name="infects_after" id="infects_after" min="0" max="14" step="1" data-output="%o day?s" />
+        </div>
+
+        <div class="form-input slider">
+          <div class="input">
+            <label for="infects_after">Infectious after</label>
+            <input type="range" name="infects_after" id="infects_after" min="0" max="14" step="1" data-output="%o day?s" />
+          </div>
           <output for="infects_after"></output>
-        </p>
-        <fieldset>
-          <legend>Immune after recovery?</legend>
-          <ul>
+        </div>
+
+        <div class="form-input regular">
+          <div class="input">
+            <label>Immune after recovery?</label>
+          </div>
+          <ul class="output">
             <li><label><input type="radio" name="immune_after" value="1"/>Yes</label></li>
             <li><label><input type="radio" name="immune_after" value="0"/>No</label></li>
           </ul>
-        </fieldset>
-        <p>
-          <label for="behaviour">Behaviour when ill</label>
-          <select id="behaviour" name="behaviour">
-            <option value="0">Normal</option>
-            <option value="1">Stationary</option>
-            <option value="2">Quarantined</option>
-          </select>
-        </p>
+        </div>
+
+        <div class="form-input regular">
+          <div class="input">
+            <label for="behaviour">Behaviour when ill</label>
+          </div>
+          <div class="output">
+            <select id="behaviour" name="behaviour">
+              <option value="0">Normal</option>
+              <option value="1">Stationary</option>
+              <option value="2">Quarantined</option>
+            </select>
+          </div>
+        </div>
       </fieldset>
 
       <fieldset id="prob">
         <legend>Probabilities</legend>
-        <p>
-          <label for="death">Probability of death</label>
-          <input type="range" name="prob_death" id="prob_death" min="0" max="1" step="0.05"/>
+
+        <div class="form-input slider">
+          <div class="input">
+            <label for="death">Probability of death</label>
+            <input type="range" name="prob_death" id="prob_death" min="0" max="1" step="0.05"/>
+          </div>
           <output for="prob_death"></output>
-        </p>
-        <p>
-          <label for="death">Probability of infection</label>
-          <input type="range" name="prob_infection" id="prob_infection" min="0" max="1" step="0.05"/>
+        </div>
+
+        <div class="form-input slider">
+          <div class="input">
+            <label for="death">Probability of infection</label>
+            <input type="range" name="prob_infection" id="prob_infection" min="0" max="1" step="0.05"/>
+          </div>
           <output for="prob_infection"></output>
-        </p>
-        <p>
-          <label for="death">Probability of remaining stationary</label>
-          <input type="range" name="prob_static" id="prob_static" min="0" max="1" step="0.05"/>
+        </div>
+        
+        <div class="form-input slider">
+          <div class="input">
+            <label for="death">Probability of remaining stationary</label>
+            <input type="range" name="prob_static" id="prob_static" min="0" max="1" step="0.05"/>
+          </div>
           <output for="prob_static"></output>
-        </p>
+        </div>
       </fieldset>
     </form>
   </div>
 
-
-  <div class="results">
-    <button id="clear">Clear Results</button>
-
-    <table id="results">
-      <thead>
-        <tr>
-          <th scope="col">Epidemic</th>
-          <th scope="col">Duration (days)</th>
-          <th scope="col">Death count</th>
-          <th scope="col">Number who never got ill</th>
-          <th scope="col">Number who got ill and recovered</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-      <tfoot>
-        <tr class="mean">
-          <th scope="row">Mean</th>
-          <td class="day"></td>
-          <td class="dead"></td>
-          <td class="healthy"></td>
-          <td class="recovered"></td>
-        </tr>
-        <tr class="std_dev">
-          <th scope="row">Standard Deviation</th>
-          <td class="day"></td>
-          <td class="dead"></td>
-          <td class="healthy"></td>
-          <td class="recovered"></td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
+  </main>
 
   <footer>
     <p>An experimental probability exercise. Inspired by the NRICH project's <a href="http://nrich.maths.org/4489/">Epidemic Modelling</a> activity. <a href="https://github.com/tachyondecay/epidemic-simulator/">Source code</a>.</p>
