@@ -41,6 +41,11 @@ h3, .day-count {
   margin: 0;
 }
 
+p {
+  margin: 0;
+  padding: 0.5em;
+}
+
 pre {
   font-size: 12px;
   font-family: Courier New, Courier, monospace;
@@ -82,9 +87,11 @@ footer {
   text-align: center;
 }
 
-p {
+.message {
+  font-size: 1.5em;
   margin: 0;
-  padding: 0.5em 0.25em 0.5em;
+  padding: 0 0.5em;
+  text-align: center;
 }
 
 .display-meta {

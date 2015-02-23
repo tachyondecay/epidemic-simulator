@@ -1,7 +1,19 @@
 function inputError(control, message) {
   control.addClass('error');
-  messageDiv = $('<span class="message"/>');
-  messageDiv.text(message).appendTo(control.parent());
+  messageDiv = $('.message').filter(function() {
+    return $(this).data('for') == control.attr('id');
+  });
+
+  if(messageDiv.length === 0) {
+    messageDiv = $('<div class="message"/>').data('for', control.attr('id')).hide().insertAfter(control.parents('.form-input'));
+  }
+
+  if(message != messageDiv.text()) {
+    messageDiv
+      .text(message)
+      .hide()
+      .fadeIn('slow');
+  }
 }
 
 function loadConfig() {
@@ -32,8 +44,7 @@ $(function() {
     }
   });
 
-
-  Simulator.default_config = $.extend({}, Simulator.config);
+  Simulator.defaults = $.extend({}, Simulator.config);
   Simulator.init();
   loadConfig();
   $(window).trigger('resize');
@@ -57,7 +68,9 @@ $(function() {
     });
 
     $('.error').removeClass('error');
-    $('.message').remove();
+    if(data.prob_death == 1) {
+      inputError($('[name=prob_death]'), 'You monster.');
+    }
     var errors = Simulator.validate(data);
     if(Object.keys(errors).length > 0) {
       $.each(errors, function(name, value) {
@@ -65,12 +78,14 @@ $(function() {
       });
       Simulator.toggleControls([], ['run']);
     } else {
-      if(data.prob_death == 1) {
-        inputError($('[name=prob_death]'), 'You monster.');
-      }
+      $('.message').each(function() {
+        var field = $(this).data('for');
+        console.log(field);
+        if(!$('#' + field).hasClass('error')) {
+          $(this).slideUp(300, function() { $(this).remove(); });
+        }
+      });
       Simulator.config = $.extend(Simulator.config, data);
-      console.log(Simulator.config);
-      console.log(Simulator.default_config);
       Simulator.toggleControls(['run']);
       Simulator.init();
     }
