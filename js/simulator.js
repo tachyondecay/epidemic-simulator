@@ -19,7 +19,7 @@ var Simulator = {
     speed: 1              // Simulation speed
   },
   canvas: {
-    element: 'canvas',
+    element: '#canvas',
     colours: {
       grid: '#aaa',
       text: '#000',
@@ -102,6 +102,7 @@ var Simulator = {
   
   init: function() {
     this.currentEpidemic = new Epidemic();
+    Simulator.legend(25);
     Simulator.draw();
   },
 
@@ -110,7 +111,7 @@ var Simulator = {
     canvas = canvas || this.canvas;
     var c = $(canvas.element);
 
-    $('.day-count span').text(epidemic.day);
+    $('.' + c.data('count') +' span').text(epidemic.day);
 
     var w = c.attr('width');
     var cell_width = Math.floor(w / epidemic.grid.size);
@@ -141,25 +142,33 @@ var Simulator = {
         villager.draw(canvas, cell_width);
       }
     });
+  },
 
-    // function newRow(s, len) {
-    //   s += "\n|";
-    //   for(var i = 0; i < len; i++) {
-    //     s += " = |";
-    //   }
-    //   s += "\n|";
-    //   return s;
-    // }
+  legend: function(size) {
+    var self = this;
+    $('.legend dt').each(function() {
+      var c = $('<canvas width="' + size + '" height="' + size + '"></canvas>');
+      var status = $(this).data('status');
 
-    // var output = newRow('', epidemic.grid.size);
-    // epidemic.grid.forEach(function(villager, v) {
-    //   output += (villager) ? " " + villager.draw() + " " : "   ";
-    //   output += "|";
-    //   if(v.x == (epidemic.grid.size - 1)) {
-    //     output = newRow(output, epidemic.grid.size);
-    //   }
-    // }, this, true);
-    // $(canvas.element).html(output);
+      c.drawEllipse({
+        fillStyle: self.canvas.colours[(status=='quarantined') ? 'infected' : status],
+        width: size, height: size,
+        x: size/2, y: size/2
+      });
+
+      if(status == 'quarantined') {
+        c.drawText({
+          fillStyle: self.canvas.colours.text,
+          fontStyle: 400,
+          fontFamily: self.canvas.fontFamily,
+          fontSize: size*0.65,
+          x: size/2, y: size/2,
+          text: 'Q'
+        });
+      }
+
+      $(this).html(c);
+    });
   },
 
   log: function(e) {

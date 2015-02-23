@@ -17,7 +17,7 @@ $(window).resize(function() {
   var container = $('.canvas-container');
   // var dim = Math.floor((Math.min(container.height(), container.width()) - 20)/100)*100;
   var dim = Math.floor((container.width() - 20)/100)*100;
-  $('canvas').attr({
+  $(Simulator.canvas.element).attr({
     width: dim,
     height: dim
   });

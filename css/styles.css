@@ -59,6 +59,7 @@ dt, dd {
   display: inline-block;
   margin: 0;
   padding: 0;
+  vertical-align: middle;
 }
 
 dt {
@@ -265,7 +266,6 @@ input[type='range']:active::-webkit-slider-runnable-track {
   }
 
   .display-meta .day-count {
-    flex: 0;
     padding-right: 1em;
   }
 

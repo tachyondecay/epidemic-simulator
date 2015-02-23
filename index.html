@@ -32,16 +32,16 @@
           </ul>
         </div>
 
-        <div class="legend">
+        <div>
           <h3>Legend</h3>
-          <dl>
-            <dt class="healthy">O</dt>
+          <dl class="legend">
+            <dt data-status="normal">O</dt>
             <dd>Healthy</dd>
-            <dt class="immune">N</dt>
+            <dt data-status="immune">N</dt>
             <dd>Immune</dd>
-            <dt class="infected">/</dt>
+            <dt data-status="infected">/</dt>
             <dd>Infected</dd>
-            <dt class="quarantined">Q</dt>
+            <dt data-status="quarantined">Q</dt>
             <dd>Quarantined</dd>
           </dl>
         </div>
@@ -51,7 +51,7 @@
       <div class="canvas-container">
         <h3 class="visuallyhidden">Grid</h3>
         
-        <canvas id="canvas" width="300" height="300"></canvas>
+        <canvas id="canvas" data-count="day-count" width="300" height="300"></canvas>
       </div>
     </div>
     <div class="display results">
