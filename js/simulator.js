@@ -18,7 +18,17 @@ var Simulator = {
     prob_static: 0.2,         // Probability someone will remain stationary
     speed: 1              // Simulation speed
   },
-  canvas: '#canvas',
+  canvas: {
+    element: 'canvas',
+    colours: {
+      grid: '#aaa',
+      text: '#000',
+      normal: '#20B2AA',
+      immune: '#608341',
+      infected: '#A62A2A',
+    },
+    fontFamily: 'Oswald, sans-serif'
+  },
   resultsTable: '#results',
   currentEpidemic: null,
   pastEpidemics: [],
@@ -98,25 +108,58 @@ var Simulator = {
   draw: function(epidemic, canvas) {
     epidemic = epidemic || this.currentEpidemic;
     canvas = canvas || this.canvas;
-    function newRow(s, len) {
-      s += "\n|";
-      for(var i = 0; i < len; i++) {
-        s += " = |";
-      }
-      s += "\n|";
-      return s;
+    var c = $(canvas.element);
+
+    $('.day-count span').text(epidemic.day);
+
+    var w = c.attr('width');
+    var cell_width = Math.floor(w / epidemic.grid.size);
+    var new_width = (cell_width)*epidemic.grid.size;
+    c.attr({
+      'width': new_width,
+      'height': new_width
+    });
+
+    c.clearCanvas();
+    for (var x = 0; x <= w; x += cell_width) {
+      c.drawLine({
+        strokeStyle: canvas.colours.grid,
+        strokeWidth: 1,
+        x1: x, y1: 0,
+        x2: x, y2: w
+      })
+      .drawLine({
+        strokeStyle: canvas.colours.grid,
+        strokeWidth: 1,
+        x1: 0, y1: x,
+        x2: w, y2: x
+      });
     }
 
-    var output = newRow('', epidemic.grid.size);
     epidemic.grid.forEach(function(villager, v) {
-      output += (villager) ? " " + villager.draw() + " " : "   ";
-      output += "|";
-      if(v.x == (epidemic.grid.size - 1)) {
-        output = newRow(output, epidemic.grid.size);
+      if(villager) {
+        villager.draw(canvas, cell_width);
       }
-    }, this, true);
-    $('.day-count span').text(epidemic.day);
-    $(canvas).html(output);
+    });
+
+    // function newRow(s, len) {
+    //   s += "\n|";
+    //   for(var i = 0; i < len; i++) {
+    //     s += " = |";
+    //   }
+    //   s += "\n|";
+    //   return s;
+    // }
+
+    // var output = newRow('', epidemic.grid.size);
+    // epidemic.grid.forEach(function(villager, v) {
+    //   output += (villager) ? " " + villager.draw() + " " : "   ";
+    //   output += "|";
+    //   if(v.x == (epidemic.grid.size - 1)) {
+    //     output = newRow(output, epidemic.grid.size);
+    //   }
+    // }, this, true);
+    // $(canvas.element).html(output);
   },
 
   log: function(e) {
@@ -402,17 +445,40 @@ Villager.prototype.cure = function(epidemic) {
   }
 };
 
-Villager.prototype.draw = function() {
-  var char = {
-    'normal': 'O',
-    'infected': '/',
-    'immune': 'N',
-    'isolated': 'Q'
-  };
-  if (this.status == 'infected' && Simulator.config.behaviour == 2) {
-    return char.isolated;
-  } else {
-    return char[this.status];
+Villager.prototype.draw = function(canvas, cell_width) {
+  // var char = {
+  //   'normal': 'O',
+  //   'infected': '/',
+  //   'immune': 'N',
+  //   'isolated': 'Q'
+  // };
+  // if (this.status == 'infected' && Simulator.config.behaviour == 2) {
+  //   return char.isolated;
+  // } else {
+  //   return char[this.status];
+  // }
+  // console.log(this.position);
+  // console.log(cell_width);
+  var canvas_pos = [
+    this.position.x * cell_width + (cell_width/2),
+    this.position.y * cell_width + (cell_width/2)
+  ];
+
+  $(canvas.element).drawEllipse({
+    fillStyle: canvas.colours[this.status],
+    x: canvas_pos[0], y: canvas_pos[1],
+    width: cell_width, height: cell_width
+  });
+
+  if(this.status == 'infected' && Simulator.config.behaviour == 2) {
+    $(canvas.element).drawText({
+      fillStyle: canvas.colours.text,
+      fontStyle: 400,
+      fontSize: cell_width*0.65,
+      fontFamily: canvas.fontFamily,
+      text: 'Q',
+      x: canvas_pos[0], y: canvas_pos[1]
+    });
   }
 };
 

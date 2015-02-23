@@ -104,6 +104,11 @@ p {
   list-style: none;
 }
 
+canvas {
+  display: block;
+  margin: auto;
+}
+
 .side-panel {
   background: #0e496d;
 }
@@ -249,7 +254,7 @@ input[type='range']:active::-webkit-slider-runnable-track {
     justify-content: center;
   }
 
-  .display-meta div, .canvas-container {
+  .display-meta div {
     background: #424e5b;
   }
 
@@ -271,7 +276,10 @@ input[type='range']:active::-webkit-slider-runnable-track {
   }
 
   .canvas-container {
-    margin: auto;
+    margin: 1em auto;
+    max-height: 85vh;
+    width: 90%;
+    max-width: 85vh;
   }
 }
 

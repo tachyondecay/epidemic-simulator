@@ -13,6 +13,17 @@ function loadConfig() {
   });
 }
 
+$(window).resize(function() {
+  var container = $('.canvas-container');
+  // var dim = Math.floor((Math.min(container.height(), container.width()) - 20)/100)*100;
+  var dim = Math.floor((container.width() - 20)/100)*100;
+  $('canvas').attr({
+    width: dim,
+    height: dim
+  });
+  Simulator.draw();
+});
+
 $(function() {
   $.each(Simulator.controls, function(i,v) {
     $(v.element).prop('disabled', v.disabled);
@@ -21,9 +32,11 @@ $(function() {
     }
   });
 
+
   Simulator.default_config = $.extend({}, Simulator.config);
   Simulator.init();
   loadConfig();
+  $(window).trigger('resize');
 
   $('input[type=range]').on('input', function() {
     var t = $(this).val();
