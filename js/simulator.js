@@ -248,9 +248,6 @@ var Simulator = {
     if(['0','1','2'].indexOf(new_config.behaviour) === -1) {
       new_config.behaviour = Simulator.config.behaviour;
     }
-    if(new_config.speed < 0.25 || new_config.speed > 3) {
-      new_config.speed = Simulator.config.speed;
-    }
 
     var frac = ['infected', 'immune', 'prob_death', 'prob_infection', 'prob_static'];
     $.each(frac, function(i,v) {

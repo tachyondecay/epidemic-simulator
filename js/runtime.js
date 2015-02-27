@@ -68,6 +68,14 @@ $(function() {
     $('output[for=' + $(this).attr('id') + ']').text(t);
   }).trigger('input');
 
+  $('#speed').change(function(e) {
+    e.stopImmediatePropagation();
+    v = $(this).val();
+    if(v > 0 && v <= 3) {
+      Simulator.config.speed = v;
+    }
+  });
+
   $('#config').change(function() {
     var data = {};
     $.each($(this).serializeArray(), function(i,item) {

@@ -125,6 +125,14 @@
       <h2>Variables</h2>
 
       <form id="config">
+        <div class="form-input slider">
+          <div class="input">
+            <label for="speed">Simulation Speed</label>
+            <input type="range" name="speed" id="speed" min="0.2" max="3" step="0.2" data-output="%o second?s/day"/>
+          </div>
+          <output for="speed"></output>
+        </div>
+
         <fieldset id="village">
           <legend>Village</legend>
 
@@ -134,14 +142,6 @@
               <input type="range" name="grid_size" id="grid_size" min="2" max="50" step="1"/>
             </div>
             <output for="grid_size"></output>
-          </div>
-
-          <div class="form-input slider">
-            <div class="input">
-              <label for="speed">Simulation Speed</label>
-              <input type="range" name="speed" id="speed" min="0.25" max="3" step="0.25" data-output="%o second?s/day"/>
-            </div>
-            <output for="speed"></output>
           </div>
 
           <div class="form-input regular">
