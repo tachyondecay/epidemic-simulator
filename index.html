@@ -19,72 +19,107 @@
   <main>
 
   <div class="main-panel">
-    <div class="display">
-      <h2 class="visuallyhidden">Simulation Output</h2>
-
-      <div class="display-meta">
-        <div class="controls">
-          <h3>Controls</h3>
-          <ul>
-            <li><button id="new">New Grid</button></li>
-            <li><button id="run">Run</button></li>
-            <li><button id="pause">Pause</button></li>
-          </ul>
-        </div>
+    <div class="instructions-container">
+      <div class="instructions">
+        <h2>Instructions</h2>
 
         <div>
-          <h3>Legend</h3>
-          <dl class="legend">
-            <dt data-status="normal">O</dt>
-            <dd>Healthy</dd>
-            <dt data-status="immune">N</dt>
-            <dd>Immune</dd>
-            <dt data-status="infected">/</dt>
-            <dd>Infected</dd>
-            <dt data-status="quarantined">Q</dt>
-            <dd>Quarantined</dd>
-          </dl>
-        </div>
-        <div class="day-count">Day <span>0</span></div>
-      </div>
+          <h3>Be a Researcher</h3>
+          
+          <p>This simulator allows you to model a simplified epidemic. When you click <strong>Run</strong>, the simulation will advance day-by-day. Each day, a villager has a chance of moving into an empty adjacent space on the grid. If healthy, non-immune villagers come into contact with an infected person, they have a chance of catching the disease, unless that person is quarantined. Once the disease has run its course in a villager, they have a chance of recovering or dying. You can tweak all of these variables, and more, and observe how the epidemic changes.</p>
 
-      <div class="canvas-container">
-        <h3 class="visuallyhidden">Grid</h3>
-        
-        <canvas id="canvas" data-count="day-count" width="300" height="300"></canvas>
+          <p>Each time you conduct a trial the results will appear in the table, and the mean and standard deviation will update. You can clear these results at any time. Note that if you pause a trial and adjust the variables, the simulation will regenerate the grid and reset to Day 0.</p>
+
+          <h3>Make a Hypothesis</h3>
+
+          <p>Rigorous research means trying to isolate the effect a single variable has on a situation by “controlling” for the other variables. To begin to understand how any of these variables affect the epidemic, try the following:</p>
+
+          <ol>
+            <li>Conduct a number of trials, and record the results.
+            <li>Change one variable (e.g., grid dimensions).</li>
+            <li>Make a hypothesis about how your change will affect the outcome of the experiment. Here are some examples, each of different complexity:
+              <ul>
+                <li><i>If I increase the size of the village, fewer people will die.</i></li>
+                <li><i>If I increase the size of the village, the disease will take longer to spread, so fewer people will catch it before the infected die or recover.</i></li>
+                <li><i>If I decrease the size of the village, the epidemic will not last as long, because the disease will spread and then die out more quickly.</i></li>
+              </ul>
+            </li>
+            <li>Conduct the same number of trials as you did in the first experiment and record the results.</li>
+            <li>Compare the mean and standard deviations between the two experiments. Do the data support your hypothesis?</li>
+            <li>Decide on another variable to change, and repeat!</li>
+          </ol>
+        </div>
       </div>
     </div>
-    <div class="display results">
-      <h2>Results</h2>
 
-      <table id="results">
-        <thead>
-          <tr>
-            <td><button id="clear" title="Remove all results">Clear</button></td>
-            <th scope="col">Duration (days)</th>
-            <th scope="col">Death count</th>
-            <th scope="col">Number who never got ill</th>
-            <th scope="col">Number who got ill and recovered</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot>
-          <tr class="mean">
-            <th scope="row">Mean</th>
-            <td class="day"></td>
-            <td class="dead"></td>
-            <td class="healthy"></td>
-            <td class="recovered"></td>
-          </tr>
-          <tr class="std_dev">
-            <th scope="row">Standard Deviation</th>
-            <td class="day"></td>
-            <td class="dead"></td>
-            <td class="healthy"></td>
-            <td class="recovered"></td>
-          </tr>
-        </tfoot>
-      </table>
+    <div class="simulation-output">
+      <div class="display">
+        <h2 class="visuallyhidden">Simulation Output</h2>
+
+        <div class="display-meta">
+          <div class="controls">
+            <h3>Controls</h3>
+            <ul>
+              <li><button id="new">New Grid</button></li>
+              <li><button id="run">Run</button></li>
+              <li><button id="pause">Pause</button></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3>Legend</h3>
+            <dl class="legend">
+              <dt data-status="normal">O</dt>
+              <dd>Healthy</dd>
+              <dt data-status="immune">N</dt>
+              <dd>Immune</dd>
+              <dt data-status="infected">/</dt>
+              <dd>Infected</dd>
+              <dt data-status="quarantined">Q</dt>
+              <dd>Quarantined</dd>
+            </dl>
+          </div>
+          <div class="day-count">Day <span>0</span></div>
+        </div>
+
+        <div class="canvas-container">
+          <h3 class="visuallyhidden">Grid</h3>
+          
+          <canvas id="canvas" data-count="day-count" width="300" height="300"></canvas>
+        </div>
+      </div>
+      <div class="results">
+        <h2>Results</h2>
+
+        <table id="results">
+          <thead>
+            <tr>
+              <td><button id="clear" title="Remove all results">Clear</button></td>
+              <th scope="col">Duration (days)</th>
+              <th scope="col">Death count</th>
+              <th scope="col">Number who never got ill</th>
+              <th scope="col">Number who got ill and recovered</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+          <tfoot>
+            <tr class="mean">
+              <th scope="row">Mean</th>
+              <td class="day"></td>
+              <td class="dead"></td>
+              <td class="healthy"></td>
+              <td class="recovered"></td>
+            </tr>
+            <tr class="std_dev">
+              <th scope="row">Standard Deviation</th>
+              <td class="day"></td>
+              <td class="dead"></td>
+              <td class="healthy"></td>
+              <td class="recovered"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
     </div>
   </div>
 

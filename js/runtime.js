@@ -37,6 +37,13 @@ $(window).resize(function() {
 });
 
 $(function() {
+  $('.instructions').click(function() {
+    $(this).toggleClass('hovered');
+  })
+  .hover(function() {
+    $(window).resize();
+  });
+
   $.each(Simulator.controls, function(i,v) {
     $(v.element).prop('disabled', v.disabled);
     if(v.callback) {

@@ -7,7 +7,15 @@
   Basic text: #E5E3E1;
  */
 
+
+/*
+  General Typography and  Helpers
+ */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Oswald:400,300);
+
+* {
+  box-sizing: border-box;
+}
 
 .visuallyhidden {
   position: absolute;
@@ -39,9 +47,15 @@ h1 {
   margin: 1em 0;
 }
 
+header h1 {
+  font-size: 3em;
+  margin: 0;
+}
+
 h2 {
   font-size: 1.5em;
-  margin: 0.5em 0;
+  margin: 0;
+  padding: 0.5em 0;
   text-align: center;
 }
 
@@ -50,23 +64,31 @@ h3, .day-count {
   margin: 0;
 }
 
-p {
-  margin: 0;
-  padding: 0.5em;
+.instructions h3 {
+  padding: 1em 1em 0;
 }
 
-pre {
-  font-size: 12px;
-  font-family: Courier New, Courier, monospace;
+p {
+  line-height: 1.5em;
+  margin: 0;
+  padding: 0.75em 1.25em;
 }
 
 dl, ol, ul {
-  margin: 0;
-  padding: 0;
+  margin: 0.75em 1.5em;
+}
+
+ol ul {
+  margin-left: 0.5em;
+}
+
+li {
+  margin: 0.5em 0;
 }
 
 .display-meta dl, .display-meta ul {
-  margin-top: 0.5em;
+  margin: 0.5em 0 0 0;
+  padding: 0;
 }
 
 dt, dd {
@@ -81,15 +103,19 @@ dt {
   margin: 0 0.2em 0 0.5em;
 }
 
-header {
-  background: #0e496d linear-gradient(#2c6d93, #0e496d 90%);
-  box-shadow: 0 5px 5px rgba(0,0,0,0.5);
+.display-meta li {
+  list-style: none;
+}
+
+form ul {
+  margin: 0;
   text-align: center;
 }
 
-header h1 {
-  font-size: 3em;
+form li {
+  display: inline-block;
   margin: 0;
+  padding-left: 1em;
 }
 
 footer {
@@ -107,6 +133,10 @@ a:hover {
   text-shadow: 0 0 #ffb84d;
 }
 
+form {
+  font-size: 14px;
+}
+
 .message {
   font-size: 1.5em;
   margin: 0;
@@ -114,10 +144,57 @@ a:hover {
   text-align: center;
 }
 
+/*
+  Layering
+ */
+
+header, .main-panel, .instructions, .display {
+  position: relative;
+}
+
+header {
+  z-index: 100;
+}
+
+.display {
+  z-index: 50;
+}
+
+.side-panel {
+  z-index: 500;
+}
+
+
+/*
+  Grid and positioning
+ */
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.main-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.instructions {
+  flex: 1 0 5em;
+  padding-bottom: 1em;
+  overflow: hidden;
+}
+
+.instructions:hover, .instructions.hovered {
+  flex-basis: auto;
+}
+
 .display-meta {
   display: flex;
   flex-direction: column;
-  margin-top: 1em;
+  padding-top: 1em;
 }
 
 .display-meta div {
@@ -128,21 +205,54 @@ a:hover {
   display: flex;
 }
 
-.display-meta li {
-  list-style: none;
-}
-
 canvas {
   display: block;
   margin: auto;
 }
 
-.side-panel {
-  background: #0e496d;
-}
-
 .results {
   margin: 3em 0 5em;
+}
+
+.form-input {
+  display: flex;
+  align-content: stretch;
+
+  padding: 1em;
+}
+
+output, .output {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex: 1 1 0;
+}
+
+.input {
+  flex: 2 1 0;
+}
+
+
+/*
+  Theme
+ */
+
+header {
+  background: #0e496d linear-gradient(#2c6d93, #0e496d 90%);
+  box-shadow: 0 5px 5px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+.instructions {
+  background: #964514;
+}
+
+.display, .side-panel {
+  box-shadow: 0 -5px 5px rgba(0,0,0,0.5);
+}
+
+.side-panel {
+  background: #0e496d;
 }
 
 table {
@@ -185,44 +295,15 @@ td {
   text-align: right;
 }
 
-form {
-  font-size: 14px;
-}
-
-.form-input {
-  display: flex;
-  align-content: stretch;
-
-  padding: 1em;
-}
-
 .form-input:nth-child(2n+1) {
   background: #0b3249;
 }
 
 output, .output {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex: 1 1 0;
-
   font-size: 1.25em;
   font-weight: bold;
   text-align: center;
   text-shadow: 1px 1px 5px rgba(255,255,255,0.5), -1px -1px 15px rgba(0,0,0,0.5);
-}
-
-.input {
-  flex: 2 1 0;
-}
-
-form ul {
-  text-align: center;
-}
-
-form li {
-  display: inline-block;
-  padding-left: 1em;
 }
 
 fieldset {
@@ -315,34 +396,19 @@ input[type='range']:active::-webkit-slider-runnable-track {
   margin: -5px;
 }
 
-@media (min-width: 500px) {
-  pre {
-    font-size: 14px;
-    font-weight: bold;
-  }
 
-  .main-panel {
-    font-size: 16px;
-  }
+/*
+  Bigger mobile devices and up
+ */
+@media (min-width: 500px) {
+
+  /*
+    Grid and positioning
+   */
 
   .display-meta {
     flex-direction: row-reverse;
     justify-content: center;
-  }
-
-  .display-meta div {
-    background: #424e5b;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.5),
-                -1px -1px 1px rgba(255,255,255,0.4);
-    margin: 0 0.25em;
-  }
-
-  .display-meta div:last-child {
-    border-radius: 5px 0 0 5px;
-  }
-
-  .display-meta div:first-child {
-    border-radius: 0 5px 5px 0;
   }
 
   .display-meta .day-count {
@@ -361,6 +427,30 @@ input[type='range']:active::-webkit-slider-runnable-track {
     max-height: 85vh;
     width: 90%;
     max-width: 85vh;
+  }
+
+
+  /*
+    Theme
+   */
+
+  .main-panel {
+    font-size: 16px;
+  }
+
+  .display-meta div {
+    background: #424e5b;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.5),
+                -1px -1px 1px rgba(255,255,255,0.4);
+    margin: 0 0.25em;
+  }
+
+  .display-meta div:last-child {
+    border-radius: 5px 0 0 5px;
+  }
+
+  .display-meta div:first-child {
+    border-radius: 0 5px 5px 0;
   }
 
   table {
@@ -382,37 +472,90 @@ input[type='range']:active::-webkit-slider-runnable-track {
   }
 }
 
+
+/*
+  Small desktop-size screens and up
+ */
 @media (min-width: 900px) {
+
+  /*
+    Layering
+   */
+  
+  .instructions {
+    z-index: 100;
+  }
+
+  /*
+    Grid and positioning
+   */
   main {
-    display: flex;
-    flex-wrap: wrap;
+    flex-direction: row-reverse;
   }
 
   .main-panel {
+    /*flex-direction: row-reverse;*/
+    margin-top: -4.5em;
+    padding: 0 5.5em 3em 0;
+  }
+
+  .simulation-output {
     display: flex;
     flex-direction: column;
-    flex: 1;
-
-    margin-top: -6em;
-    padding-left: 3em;
-    padding-bottom: 3em;
   }
 
   .side-panel {
-    flex: 33% 0 0;
-    order: -1;
+    flex: 25% 0 0;
+  }
+
+  .instructions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-height: 15em;
+    /*flex: 0 0 4em;*/
+  }
+
+  .instructions div {
+    margin-right: 3.5em;
+    font-size: 0;
+    opacity: 0;
+    transition: font-size 500ms ease-in-out,
+                opacity 500ms ease-in-out 100ms;
+  }
+
+  .instructions h2 {
+    position: absolute;
+    transform: rotate(90deg);
+    top: 3em;
+    right: -1em;
+  }
+
+  .instructions.hovered div:before {
+    display: block;
+    content: 'Click again to close.';
+    font-weight: bold;
+    padding-top: 2em;
+    margin-bottom: -2.5em;
+    text-align: center;
+  }
+
+  .instructions:hover div, .instructions.hovered div {
+    font-size: 1em;
+    opacity: 1;
+  }
+
+  .instructions p {
+    margin: auto;
+    max-width: 50em;
   }
 
   header {
-    width: 33%;
-  }
-  
-  header, .side-panel {
-    box-shadow: 3px 10px 10px rgba(0,0,0,0.5);
+    width: 25%;
   }
 
   footer {
-    margin-left: 33%;
+    margin-left: 25%;
     margin-top: -3em;
     margin-bottom: 0;
   }
@@ -420,8 +563,33 @@ input[type='range']:active::-webkit-slider-runnable-track {
   ul.output {
     flex: 2;
   }
+
+
+  /*
+    Theme
+   */
+  
+  header h1 {
+    font-size: 2.5em;
+  }
+  
+  header, .side-panel {
+    box-shadow: 3px 10px 10px rgba(0,0,0,0.5);
+  }
+
+  .instructions {
+    box-shadow: -3px 0 10px rgba(0,0,0,0.5);
+  }
+
+  .display, .main-panel {
+    box-shadow: none;
+  }
 }
 
+
+/*
+  Average desktop-size screens and up
+ */
 @media (min-width: 1400px) {
   .side-panel {
     flex: 25% 0 0;
