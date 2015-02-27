@@ -513,15 +513,14 @@ input[type='range']:active::-webkit-slider-runnable-track {
     top: 0;
     right: 0;
     min-height: 15em;
-    /*flex: 0 0 4em;*/
   }
 
   .instructions div {
     margin-right: 3.5em;
     font-size: 0;
     opacity: 0;
-    transition: font-size 500ms ease-in-out,
-                opacity 500ms ease-in-out 100ms;
+    transition: font-size 300ms ease-in-out,
+                opacity 500ms ease-in-out 75ms;
   }
 
   .instructions h2 {
