@@ -247,6 +247,14 @@ header {
   background: #964514;
 }
 
+.instructions.hovered div:before {
+  display: block;
+  content: 'Click again to close.';
+  font-weight: bold;
+  padding-top: 2em;
+  text-align: center;
+}
+
 .display, .side-panel {
   box-shadow: 0 -5px 5px rgba(0,0,0,0.5);
 }
@@ -400,7 +408,7 @@ input[type='range']:active::-webkit-slider-runnable-track {
 /*
   Bigger mobile devices and up
  */
-@media (min-width: 500px) {
+@media (min-width: 31.25em) {
 
   /*
     Grid and positioning
@@ -476,7 +484,7 @@ input[type='range']:active::-webkit-slider-runnable-track {
 /*
   Small desktop-size screens and up
  */
-@media (min-width: 900px) {
+@media (min-width: 56.25em) {
 
   /*
     Layering
@@ -494,7 +502,6 @@ input[type='range']:active::-webkit-slider-runnable-track {
   }
 
   .main-panel {
-    /*flex-direction: row-reverse;*/
     margin-top: -4.5em;
     padding: 0 5.5em 3em 0;
   }
@@ -528,15 +535,6 @@ input[type='range']:active::-webkit-slider-runnable-track {
     transform: rotate(90deg);
     top: 3em;
     right: -1em;
-  }
-
-  .instructions.hovered div:before {
-    display: block;
-    content: 'Click again to close.';
-    font-weight: bold;
-    padding-top: 2em;
-    margin-bottom: -2.5em;
-    text-align: center;
   }
 
   .instructions:hover div, .instructions.hovered div {
@@ -589,7 +587,7 @@ input[type='range']:active::-webkit-slider-runnable-track {
 /*
   Average desktop-size screens and up
  */
-@media (min-width: 1400px) {
+@media (min-width: 87.5em) {
   .side-panel {
     flex: 25% 0 0;
   }
