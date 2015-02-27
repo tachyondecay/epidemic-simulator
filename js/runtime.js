@@ -56,6 +56,7 @@ $(function() {
   loadConfig();
   $(window).trigger('resize');
 
+  // Update the output displays each time the slider moves
   $('input[type=range]').on('input', function() {
     var t = $(this).val();
     var o = $(this).data('output');
@@ -67,6 +68,20 @@ $(function() {
     }
     $('output[for=' + $(this).attr('id') + ']').text(t);
   }).trigger('input');
+
+  // The percentage immune and percentage infected must not exceed a total 100%
+  $('#infected, #immune').on('input', function() {
+    var other = ($(this).attr('id') == 'infected') ? '#immune' : '#infected';
+    var other_value = $(other).val();
+    var old_value = $(this).data('old') || Simulator.config[$(this).attr('id')];
+
+    // Check if new value and other field's value are more than 100%
+    if(parseFloat(other_value, 10) + parseFloat($(this).val(), 10) > 1) {
+      var diff = $(this).val() - old_value;
+      $(other).val(other_value - diff).trigger('input');
+    }
+    $(this).data('old', $(this).val());
+  });
 
   $('#speed').change(function(e) {
     e.stopImmediatePropagation();
