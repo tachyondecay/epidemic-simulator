@@ -17,7 +17,6 @@
   </header>
 
   <main>
-
     <div class="main-panel">
       <div class="instructions">
         <h2>Instructions</h2>
@@ -99,24 +98,31 @@
                 <th scope="col">Number who got ill and recovered</th>
               </tr>
             </thead>
-            <tbody></tbody>
-            <tfoot>
-              <tr class="mean">
+            <tbody data-round="0">
+              <tr class="divider">
+                <td colspan="5">
+                  <span>Default variables.</span>
+                  <a href="#" class="view-config">View all variables for this round.</a>
+                </td>
+              </tr>
+              <tr class="stats mean">
                 <th scope="row">Mean</th>
                 <td class="day"></td>
                 <td class="dead"></td>
                 <td class="healthy"></td>
                 <td class="recovered"></td>
               </tr>
-              <tr class="std_dev">
+              <tr class="stats std_dev">
                 <th scope="row">Standard Deviation</th>
                 <td class="day"></td>
                 <td class="dead"></td>
                 <td class="healthy"></td>
                 <td class="recovered"></td>
               </tr>
-            </tfoot>
+            </tbody>
           </table>
+
+          <div class="show-config"><dl></dl><a href="#">Hide</a></div>
         </div>
       </div>
     </div>
@@ -138,7 +144,7 @@
 
           <div class="form-input slider">
             <div class="input">
-              <label for="size">Grid Dimensions</label>
+              <label for="grid_size">Grid Dimensions</label>
               <input type="range" name="grid_size" id="grid_size" min="2" max="50" step="1"/>
             </div>
             <output for="grid_size"></output>
@@ -191,7 +197,7 @@
 
           <div class="form-input regular">
             <div class="input">
-              <label>Immune after recovery?</label>
+              <label for="immune_after">Immune after recovery?</label>
             </div>
             <ul class="output">
               <li><label><input type="radio" name="immune_after" value="1"/>Yes</label></li>
@@ -218,7 +224,7 @@
 
           <div class="form-input slider">
             <div class="input">
-              <label for="death">Probability of death</label>
+              <label for="prob_death">Probability of death</label>
               <input type="range" name="prob_death" id="prob_death" min="0" max="1" step="0.05"/>
             </div>
             <output for="prob_death"></output>
@@ -226,7 +232,7 @@
 
           <div class="form-input slider">
             <div class="input">
-              <label for="death">Probability of infection</label>
+              <label for="prob_infection">Probability of infection</label>
               <input type="range" name="prob_infection" id="prob_infection" min="0" max="1" step="0.05"/>
             </div>
             <output for="prob_infection"></output>
@@ -234,7 +240,7 @@
           
           <div class="form-input slider">
             <div class="input">
-              <label for="death">Probability of remaining stationary</label>
+              <label for="prob_static">Probability of remaining stationary</label>
               <input type="range" name="prob_static" id="prob_static" min="0" max="1" step="0.05"/>
             </div>
             <output for="prob_static"></output>

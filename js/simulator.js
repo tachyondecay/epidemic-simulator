@@ -30,6 +30,7 @@ var Simulator = {
     fontFamily: 'Oswald, sans-serif'
   },
   resultsTable: '#results',
+  history: [],
   currentEpidemic: null,
   pastEpidemics: [],
   mean: {
@@ -174,10 +175,11 @@ var Simulator = {
   log: function(e) {
     var self = this;
     self.pastEpidemics.push(e);
+    var rounds = self.history.length;
     var n = self.pastEpidemics.length;
     var stats = ['day', 'dead', 'healthy', 'recovered'];
-    var rRow = $('<tr>');
-    var rTable = $(self.resultsTable);
+    var rRow = $('<tr class="epidemic">');
+    var rTable = $('tbody', self.resultsTable).last();
 
     rRow.append('<th scope="row">Epidemic ' + n + '</th>');
     // Include epidemic in the stats
@@ -192,7 +194,7 @@ var Simulator = {
       $('<td>').addClass(s).text(e[s]).appendTo(rRow);
     });
 
-    rRow.appendTo(rTable.find('tbody'));
+    rRow.insertBefore($('.stats', rTable).eq(0));
     Simulator.toggleControls(['clear']);
   },
 
@@ -223,6 +225,60 @@ var Simulator = {
         $(v.element).prop('disabled', true);
       }
     });
+  },
+
+  update: function(new_config) {
+    var self = this;
+
+    // Diff
+    var changed = [];
+    $.each(new_config, function(k,v) {
+      if(v != self.config[k]) {
+        changed.push(k);
+      }
+    });
+
+    var changelog = 'Changed ';
+    // If we changed one value, show the change directly.
+    if(changed.length == 1) {
+      changelog += '<strong>' + $('label[for=' + changed[0] + ']').text() + '</strong> from ' + self.config[changed[0]] + ' to ' + new_config[changed[0]] + '.';
+    } else {
+      changelog += changed.length.toString() + ' variables.';
+    }
+
+    // Check if we actually ran any trials since the last config change.
+    if(self.pastEpidemics.length > 0) {
+      // Store the old state
+      self.history.push({
+        config: $.extend({}, self.config),
+        epidemics: self.pastEpidemics,
+      });
+
+      // Clean slate, new config
+      self.pastEpidemics = [];
+      self.config = $.extend(self.config, new_config);
+
+      $('tbody', self.resultsTable)
+        .last()
+          .clone()
+            .data('round', self.history.length)
+            .find('tr.epidemic')
+              .remove()
+              .end()
+            .find('.stats td')
+              .empty()
+              .end()
+            .appendTo($(self.resultsTable));
+    }
+    // Didn't run any trials, so just update the divider text.
+    $('tbody', self.resultsTable)
+      .last()
+        .find('.divider span')
+          .html(changelog);
+
+
+    self.toggleControls(['run']);
+    self.init();
   },
 
   validate: function(new_config) {

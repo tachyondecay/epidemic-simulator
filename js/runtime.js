@@ -83,6 +83,7 @@ $(function() {
     $(this).data('old', $(this).val());
   });
 
+  // Changing the speed will not regenerate the grid/reset epidemic stats
   $('#speed').change(function(e) {
     e.stopImmediatePropagation();
     v = $(this).val();
@@ -115,9 +116,36 @@ $(function() {
           $(this).slideUp(300, function() { $(this).remove(); });
         }
       });
-      Simulator.config = $.extend(Simulator.config, data);
-      Simulator.toggleControls(['run']);
-      Simulator.init();
+
+      Simulator.update(data);
     }
+  });
+
+  $(Simulator.resultsTable).on('click', '.view-config', function(e) {
+    e.preventDefault();
+    var round = $(this).parents('tbody').data('round');
+    var c = null;
+
+    if(round < Simulator.history.length) {
+      c = Simulator.history[round].config;
+    } else {
+      c = Simulator.config;
+    }
+
+    var list = $('<dl></dl>');
+    $.each(c, function(k,v) {
+      $('<dt></dt>').text($('label[for=' + k + ']').text()).appendTo(list);
+      $('<dd></dd>').text(v).appendTo(list);
+    });
+    $('.show-config')
+      .children('dl')
+        .replaceWith(list)
+        .end()
+      .fadeIn();
+  });
+
+  $('.show-config a').click(function(e) {
+    e.preventDefault();
+    $('.show-config').fadeOut();
   });
 });

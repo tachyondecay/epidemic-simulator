@@ -271,8 +271,8 @@ table {
 
 thead td,
 thead th,
-tfoot td,
-tfoot th {
+tr.stats td,
+tr.stats th {
   background: #0e496d;
 }
 
@@ -293,14 +293,47 @@ thead td {
   text-align: center;
 }
 
-tfoot td {
+.stats td {
   font-style: italic;
+}
+
+.divider td {
+  font-size: 1em;
 }
 
 td {
   padding: 0.2em 0.5em;
   font-size: 1.5em;
   text-align: right;
+}
+
+.show-config {
+  display: none;
+}
+
+.show-config a {
+  display: block;
+  text-align: center;
+}
+
+.show-config dl {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1em auto;
+  max-width: 27em;
+}
+
+.show-config dt, .show-config dd {
+  margin-top: 0.5em;
+}
+
+.show-config dt {
+  flex-basis: 50%;
+}
+
+.show-config dd {
+  flex-basis: 30%;
+  margin-left: auto;
 }
 
 .form-input:nth-child(2n+1) {
@@ -471,11 +504,11 @@ input[type='range']:active::-webkit-slider-runnable-track {
     border-top-right-radius: 5px;
   }
 
-  tfoot tr:last-child th:first-child {
+  table tr:last-child th:first-child {
     border-bottom-left-radius: 5px;
   }
 
-  tfoot tr:last-child td:last-child {
+  table tr:last-child td:last-child {
     border-bottom-right-radius: 5px;
   }
 }
