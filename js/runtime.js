@@ -27,7 +27,6 @@ function loadConfig() {
 
 $(window).resize(function() {
   var container = $('.canvas-container');
-  // var dim = Math.floor((Math.min(container.height(), container.width()) - 20)/100)*100;
   var dim = Math.floor((container.width() - 20)/100)*100;
   $(Simulator.canvas.element).attr({
     width: dim,
@@ -124,6 +123,7 @@ $(function() {
   $(Simulator.resultsTable).on('click', '.view-config', function(e) {
     e.preventDefault();
     var round = $(this).parents('tbody').data('round');
+    var changed = $(this).prev().data('changed') || [];
     var c = null;
 
     if(round < Simulator.history.length) {
@@ -135,7 +135,11 @@ $(function() {
     var list = $('<dl></dl>');
     $.each(c, function(k,v) {
       $('<dt></dt>').text($('label[for=' + k + ']').text()).appendTo(list);
-      $('<dd></dd>').text(v).appendTo(list);
+      var dd = $('<dd></dd>');
+      if(changed.indexOf(k) !== -1) {
+        dd.addClass('changed');
+      }
+      dd.text(v).appendTo(list);
     });
     $('.show-config')
       .children('dl')

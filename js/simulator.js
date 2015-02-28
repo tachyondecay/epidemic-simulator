@@ -273,12 +273,16 @@ var Simulator = {
     }
 
     self.config = $.extend(self.config, new_config);
-    // Didn't run any trials, so just update the divider text.
+
     $('tbody', self.resultsTable)
       .last()
         .find('.divider span')
-          .html(changelog);
+          .html(changelog)
+          .data('changed', changed);
 
+    if($('.show-config').is(':visible')) {
+      $('tbody', self.resultsTable).last().find('.view-config').click();
+    }
 
     self.toggleControls(['run']);
     self.init();

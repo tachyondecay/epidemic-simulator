@@ -346,6 +346,10 @@ td {
   margin-left: auto;
 }
 
+dd.changed {
+  font-weight: bold;
+}
+
 .form-input:nth-child(2n+1) {
   background: #0b3249;
 }
