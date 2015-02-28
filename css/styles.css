@@ -1,8 +1,8 @@
 /*
   Background: #1b242d;
-  Alternate 1: #0e496d;
-  Alternate 2: #0b3249;
-  Alternate 3: #424e5b;
+  Alternate 1: #0e496d; Lightish blue
+  Alternate 2: #0b3249; Darker blue
+  Alternate 3: #424e5b; Steel grey
 
   Basic text: #E5E3E1;
  */
@@ -128,9 +128,13 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+a:hover, a:focus, a:active {
   color: #ffb84d;
   text-shadow: 0 0 #ffb84d;
+}
+
+a:active, a:focus {
+  outline: 0;
 }
 
 form {
@@ -269,6 +273,10 @@ table {
   margin: 0 auto;
 }
 
+thead {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.4);
+}
+
 thead td,
 thead th,
 tr.stats td,
@@ -298,6 +306,7 @@ thead td {
 }
 
 .divider td {
+  background: #424e5b;
   font-size: 1em;
 }
 
@@ -309,6 +318,8 @@ td {
 
 .show-config {
   display: none;
+  margin: 0 auto;
+  max-width: 27em;
 }
 
 .show-config a {
@@ -320,7 +331,6 @@ td {
   display: flex;
   flex-wrap: wrap;
   margin: 1em auto;
-  max-width: 27em;
 }
 
 .show-config dt, .show-config dd {
@@ -504,11 +514,11 @@ input[type='range']:active::-webkit-slider-runnable-track {
     border-top-right-radius: 5px;
   }
 
-  table tr:last-child th:first-child {
+  table tbody:last-child tr:last-child th:first-child {
     border-bottom-left-radius: 5px;
   }
 
-  table tr:last-child td:last-child {
+  table tbody:last-child tr:last-child td:last-child {
     border-bottom-right-radius: 5px;
   }
 }
