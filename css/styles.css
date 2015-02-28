@@ -191,7 +191,7 @@ main {
   overflow: hidden;
 }
 
-.instructions:hover, .instructions.hovered {
+.instructions:hover {
   flex-basis: auto;
 }
 
@@ -249,14 +249,6 @@ header {
 
 .instructions {
   background: #964514;
-}
-
-.instructions.hovered div:before {
-  display: block;
-  content: 'Click again to close.';
-  font-weight: bold;
-  padding-top: 2em;
-  text-align: center;
 }
 
 .display, .side-panel {
@@ -584,7 +576,7 @@ input[type='range']:active::-webkit-slider-runnable-track {
     right: -1em;
   }
 
-  .instructions:hover div, .instructions.hovered div {
+  .instructions:hover div {
     font-size: 1em;
     opacity: 1;
   }

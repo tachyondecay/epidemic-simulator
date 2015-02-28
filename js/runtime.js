@@ -36,10 +36,7 @@ $(window).resize(function() {
 });
 
 $(function() {
-  $('.instructions').click(function() {
-    $(this).toggleClass('hovered');
-  })
-  .hover(function() {
+  $('.instructions').hover(function() {
     $(window).resize();
   });
 
