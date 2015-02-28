@@ -152,7 +152,7 @@ form {
   Layering
  */
 
-header, .main-panel, .instructions, .display {
+header, .main-panel, .instructions, .display, footer {
   position: relative;
 }
 
@@ -160,12 +160,16 @@ header {
   z-index: 100;
 }
 
-.display {
+.main-panel, .display {
   z-index: 50;
 }
 
 .side-panel {
   z-index: 500;
+}
+
+footer {
+  z-index: 400;
 }
 
 
