@@ -230,22 +230,6 @@ var Simulator = {
   update: function(new_config) {
     var self = this;
 
-    // Diff
-    var changed = [];
-    $.each(new_config, function(k,v) {
-      if(v != self.config[k]) {
-        changed.push(k);
-      }
-    });
-
-    var changelog = 'Changed ';
-    // If we changed one value, show the change directly.
-    if(changed.length == 1) {
-      changelog += '<strong>' + $('label[for=' + changed[0] + ']').text() + '</strong> from ' + self.config[changed[0]] + ' to ' + new_config[changed[0]] + '.';
-    } else {
-      changelog += changed.length.toString() + ' variables.';
-    }
-
     // Check if we actually ran any trials since the last config change.
     if(self.pastEpidemics.length > 0) {
       // Store the old state
@@ -256,7 +240,6 @@ var Simulator = {
 
       // Clean slate, new config
       self.pastEpidemics = [];
-      self.config = $.extend(self.config, new_config);
 
       $('tbody', self.resultsTable)
         .last()
@@ -270,6 +253,26 @@ var Simulator = {
               .end()
             .appendTo($(self.resultsTable));
     }
+
+    // Diff
+    var comp = (self.history.length > 0) ? self.history.slice(-1)[0].config : self.defaults;
+    console.log(comp);
+    var changed = [];
+    $.each(new_config, function(k,v) {
+      if(k != 'speed' && v != comp[k]) {
+        changed.push(k);
+      }
+    });
+
+    var changelog = 'Changed ';
+    // If we changed one value, show the change directly.
+    if(changed.length == 1) {
+      changelog += '<strong>' + $('label[for=' + changed[0] + ']').text() + '</strong> from ' + comp[changed[0]] + ' to ' + new_config[changed[0]] + '.';
+    } else {
+      changelog += changed.length.toString() + ' variables.';
+    }
+
+    self.config = $.extend(self.config, new_config);
     // Didn't run any trials, so just update the divider text.
     $('tbody', self.resultsTable)
       .last()
