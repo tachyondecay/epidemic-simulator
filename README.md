@@ -4,6 +4,10 @@ A JavaScript-based simulator that models an epidemic in a village under very sim
 
 Created by [Ben Babcock](http://tachyondecay.net/) as an investigative activity or homework assignment.
 
+[**Try it out here.**](http://tachyondecay.github.io/epidemic-simulator/)
+
+![Screenshot of the epidemic simulator's control panel and canvas grid.](https://raw.githubusercontent.com/tachyondecay/epidemic-simulator/gh-pages/images/demo.png)
+
 Students can conduct a number of trials with the same settings, then adjust a variable and make a hypothesis about how their change will affect the epidemic. If students are familiar with mean and standard deviation, they can use these statistics to support their reasoning. Even if they aren't, they will still be able to develop an understanding of the effects of each variable as they play with the simulator.
 
 ## Inspiration
