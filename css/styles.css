@@ -178,30 +178,50 @@ footer {
  */
 
 main {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
 
 .main-panel {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  flex: 1;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .instructions {
-  flex: 1 0 5em;
+  -webkit-flex: 1 0 5em;
+      -ms-flex: 1 0 5em;
+          flex: 1 0 5em;
   padding-bottom: 1em;
   overflow: hidden;
 }
 
 .instructions:hover {
-  flex-basis: auto;
+  -webkit-flex-basis: auto;
+      -ms-flex-preferred-size: auto;
+          flex-basis: auto;
 }
 
 .display-meta {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding-top: 1em;
 }
 
@@ -210,6 +230,8 @@ main {
 }
 
 .display-meta ul {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -223,21 +245,35 @@ canvas {
 }
 
 .form-input {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  align-content: stretch;
+  -webkit-align-content: stretch;
+      -ms-flex-line-pack: stretch;
+          align-content: stretch;
 
   padding: 1em;
 }
 
 output, .output {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex: 1 1 0;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex: 1 1 0;
+      -ms-flex: 1 1 0;
+          flex: 1 1 0;
 }
 
 .input {
-  flex: 2 1 0;
+  -webkit-flex: 2 1 0;
+      -ms-flex: 2 1 0;
+          flex: 2 1 0;
 }
 
 
@@ -324,8 +360,12 @@ td {
 }
 
 .show-config dl {
+  display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
   margin: 1em auto;
 }
 
@@ -334,11 +374,15 @@ td {
 }
 
 .show-config dt {
-  flex-basis: 50%;
+  -webkit-flex-basis: 50%;
+      -ms-flex-preferred-size: 50%;
+          flex-basis: 50%;
 }
 
 .show-config dd {
-  flex-basis: 30%;
+  -webkit-flex-basis: 30%;
+      -ms-flex-preferred-size: 30%;
+          flex-basis: 30%;
   margin-left: auto;
 }
 
@@ -458,8 +502,12 @@ input[type='range']:active::-webkit-slider-runnable-track {
    */
 
   .display-meta {
-    flex-direction: row-reverse;
-    justify-content: center;
+    -webkit-flex-direction: row-reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
 
   .display-meta .day-count {
@@ -541,7 +589,9 @@ input[type='range']:active::-webkit-slider-runnable-track {
     Grid and positioning
    */
   main {
-    flex-direction: row-reverse;
+    -webkit-flex-direction: row-reverse;
+        -ms-flex-direction: row-reverse;
+            flex-direction: row-reverse;
   }
 
   .main-panel {
@@ -550,12 +600,18 @@ input[type='range']:active::-webkit-slider-runnable-track {
   }
 
   .simulation-output {
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
 
   .side-panel {
-    flex: 25% 0 0;
+    -webkit-flex: 25% 0 0;
+        -ms-flex: 25% 0 0;
+            flex: 25% 0 0;
   }
 
   .instructions {
@@ -575,7 +631,8 @@ input[type='range']:active::-webkit-slider-runnable-track {
 
   .instructions h2 {
     position: absolute;
-    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
     top: 3em;
     right: -1em;
   }
@@ -601,7 +658,9 @@ input[type='range']:active::-webkit-slider-runnable-track {
   }
 
   ul.output {
-    flex: 2;
+    -webkit-flex: 2;
+        -ms-flex: 2;
+            flex: 2;
   }
 
 
@@ -632,7 +691,9 @@ input[type='range']:active::-webkit-slider-runnable-track {
  */
 @media (min-width: 87.5em) {
   .side-panel {
-    flex: 25% 0 0;
+    -webkit-flex: 25% 0 0;
+        -ms-flex: 25% 0 0;
+            flex: 25% 0 0;
   }
 
   header {
