@@ -51,11 +51,14 @@ var Simulator = {
       element: '#clear',
       disabled: true,
       callback: function() {
-        Simulator.history = [];
-        Simulator.update(Simulator.defaults);
-        
-        $('tbody', Simulator.resultsTable).empty();
-        $('.mean td, .std_dev td').text('');
+        Simulator.reset();
+        $('tbody:not(:last)', Simulator.resultsTable).remove();
+        $('tbody', Simulator.resultsTable)
+          .find('tr.epidemic')
+            .remove()
+            .end()
+          .find('tr.stats td')
+            .text('');
         Simulator.toggleControls([], ['clear']);
       }
     },
@@ -194,6 +197,17 @@ var Simulator = {
     Simulator.toggleControls(['clear']);
   },
 
+  reset: function() {
+    var self = this;
+    self.pastEpidemics = [];
+    $.each(self.mean, function(k,v) {
+      self.mean[k] = 0;
+    });
+    $.each(self.sum_diffs, function(k,v) {
+      self.sum_diffs[k] = 0;
+    });
+  },
+
   run: function(e) {
     var self = this;
     e = e || this.currentEpidemic;
@@ -235,13 +249,7 @@ var Simulator = {
       });
 
       // Clean slate, new config
-      self.pastEpidemics = [];
-      $.each(self.mean, function(k,v) {
-        self.mean[k] = 0;
-      });
-      $.each(self.sum_diffs, function(k,v) {
-        self.sum_diffs[k] = 0;
-      });
+      self.reset();
 
       $('tbody', self.resultsTable)
         .last()
