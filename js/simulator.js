@@ -51,13 +51,9 @@ var Simulator = {
       element: '#clear',
       disabled: true,
       callback: function() {
-        Simulator.pastEpidemics = [];
-        $.each(Simulator.mean, function(k,v) {
-          Simulator.mean[k] = 0;
-        });
-        $.each(Simulator.sum_diffs, function(k,v) {
-          Simulator.sum_diffs[k] = 0;
-        });
+        Simulator.history = [];
+        Simulator.update(Simulator.defaults);
+        
         $('tbody', Simulator.resultsTable).empty();
         $('.mean td, .std_dev td').text('');
         Simulator.toggleControls([], ['clear']);
@@ -240,6 +236,12 @@ var Simulator = {
 
       // Clean slate, new config
       self.pastEpidemics = [];
+      $.each(self.mean, function(k,v) {
+        self.mean[k] = 0;
+      });
+      $.each(self.sum_diffs, function(k,v) {
+        self.sum_diffs[k] = 0;
+      });
 
       $('tbody', self.resultsTable)
         .last()
